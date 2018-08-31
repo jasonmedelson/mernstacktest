@@ -1,0 +1,20 @@
+{
+  "name": "mernstacktest",
+  "version": "1.0.0",
+  "description": "testing mern stack application deployment on heroku",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonmedelson/mernstacktest.git"
+  },
+  "keywords": [],
+  "author": "Jason Edelson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jasonmedelson/mernstacktest/issues"
+  },
+  "homepage": "https://github.com/jasonmedelson/mernstacktest#readme"
+}
