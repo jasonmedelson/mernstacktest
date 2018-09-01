@@ -1,6 +1,27 @@
 const express = require('express');
 const path = require('path');
 const generatePassword = require('password-generator');
+var mysql = require('mysql')
+
+
+var connection = mysql.createConnection({
+  host:     'us-cdbr-iron-east-01.cleardb.net',
+  user:     'beb3e092ffe131',
+  password: '23e76532',
+  database: 'heroku_20e37edc6a598e9',
+})
+connection.connect()
+
+// connection.query('SELECT `anime_title` FROM `anime` ', function (err, rows, fields) {
+//   if (err) throw err
+//   for(var anime of rows){
+//     data.push(anime.anime_title)
+//   }
+//   // data = rows;
+//   // console.log(data[1].anime_title);
+//   console.log(data)
+// })
+// console.log(data)
 
 const app = express();
 
@@ -9,6 +30,19 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Put all API endpoints under '/api'
 app.get('/api/passwords', (req, res) => {
+  var data=[];
+  connection.query('SELECT * FROM `anime` ', function (err, rows, fields) {
+    if (err) throw err
+    for(var anime of rows){
+      data.push([anime.anime_title, anime.anime_rating])
+    }
+    // data = rows;
+    // console.log(data[1].anime_title);
+    console.log(data)
+    res.json(data)
+    console.log("anime sent")
+    // console.log(x)
+  })
   const count = 5;
 
   // Generate some passwords
@@ -17,9 +51,9 @@ app.get('/api/passwords', (req, res) => {
   )
 
   // Return them as json
-  res.json(passwords);
+  // res.json(passwords);
 
-  console.log(`Sent ${count} passwords`);
+  // console.log(`Sent ${count} passwords`);
 });
 
 // The "catchall" handler: for any request that doesn't
