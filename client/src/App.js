@@ -2,51 +2,51 @@ import React, { Component } from 'react';
 import './App.css';
  class App extends Component {
   // Initialize state
-  state = { passwords: [] }
-   // Fetch passwords after first mount
+  state = { anime: [] }
+   // Fetch anime after first mount
   componentDidMount() {
-    this.getPasswords();
+    this.getAnimes();
   }
-   getPasswords = () => {
-    // Get the passwords and store them in state
-    fetch('/api/passwords')
+   getAnimes = () => {
+    // Get the anime and store them in state
+    fetch('/api/anime')
       .then(res => res.json())
-      .then(passwords => this.setState({ passwords }));
+      .then(anime => this.setState({ anime }));
   }
    render() {
-    const { passwords } = this.state;
+    const { anime } = this.state;
      return (
       <div className="App">
-        {/* Render the passwords if we have them */}
-        {passwords.length ? (
+        {/* Render the anime if we have them */}
+        {anime.length ? (
           <div>
-            <h1>5 Passwords.</h1>
-            <ul className="passwords">
+            <h1>Random Anime from database.</h1>
+            <ul className="anime">
               {/*
                 Generally it's bad to use "index" as a key.
                 It's ok for this example because there will always
-                be the same number of passwords, and they never
+                be the same number of anime, and they never
                 change positions in the array.
               */}
-              {passwords.map((password, index) =>
+              {anime.map((anime, index) =>
                 <li key={index}>
-                  {password}
+                  {anime}
                 </li>
               )}
             </ul>
             <button
               className="more"
-              onClick={this.getPasswords}>
+              onClick={this.getAnimes}>
               Get More
             </button>
           </div>
         ) : (
           // Render a helpful message otherwise
           <div>
-            <h1>No passwords :(</h1>
+            <h1>No anime :(</h1>
             <button
               className="more"
-              onClick={this.getPasswords}>
+              onClick={this.getAnimes}>
               Try Again?
             </button>
           </div>
