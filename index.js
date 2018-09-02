@@ -18,12 +18,19 @@ var db_config = {
 // pool manages database connection and release
 var pool = mysql.createPool( db_config )
 
-var data=[]; //will hold anime to random
+var data= {}; //will hold anime to random
+var animes = [];
+data.animes = animes
 pool.query('SELECT * FROM `anime` ', function (err, rows, fields) {
   if (err) throw err;
 
   for(var anime of rows){
-    data.push([anime.anime_title, anime.anime_rating])
+    // data.push([anime.anime_title, anime.anime_rating])
+    var hold = {
+      "anime_title":anime.anime_title,
+      "anime_score":anime.anime_rating,
+    }
+    data.animes.push(hold)
   }
   console.log(data)
 });
@@ -39,10 +46,10 @@ app.get('/api/anime', (req, res) => {
   data_length = data.length
   console.log(data)
   number = Math.floor(Math.random() * data_length);
-  res.json(data[number]);
-  console.log("anime sent, number");
+  res.json(data);
+  console.log("anime sent",number);
+  console.log(data[number])
 });
- // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
