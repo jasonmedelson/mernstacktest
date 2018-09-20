@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
+import {myMove} from './script.js'
  class App extends Component {
   // Initialize state
-  state = { anime:[]
+  state = { anime:[],
+
     // anime: [{anime_title: "Naruto", anime_score: 95},
     //                 {anime_title: "Bleach", anime_score: 22},
     //                 {anime_title: "One Piece", anime_score: 96},
     //                 {anime_title: "Dragon Ball", anime_score: 5},],
 
                   }
-   // Fetch anime after first mount
+                  // Fetch anime after first mount
   componentDidMount() {
-    this.getAnimes();
+    // this.getAnimes();
   }
    getAnimes = () => {
+     myMove()
     // Get the anime and store them in state
     fetch('/api/anime')
       .then((response) => {
@@ -28,7 +31,7 @@ import './App.css';
     const anime  = this.state.anime;
     if ({anime}.anime.length){
       var test = [];
-      var number = Math.floor(Math.random() * 4);
+      var number = Math.floor(Math.random() * {anime}.anime.length);
       test.push(anime[number])
     }
     else{
@@ -42,26 +45,30 @@ import './App.css';
         {/* Render the anime if we have them */}
         { anime  ? (
           <div>
-            <h1>Random Anime from database.</h1>
-            <ul className="anime">
-              {/*
-                Generally it's bad to use "index" as a key.
-                It's ok for this example because there will always
-                be the same number of anime, and they never
-                change positions in the array.
-              */}
-              {test.map((anime) =>
-
-                <li key={anime.anime_score}>
-                  Anime Name: {anime.anime_title} - Rating: {anime.anime_score}
-                </li>
-              )}
-            </ul>
+            <h1>Monkey S&P 500 Stock Picker</h1>
             <button
               className="more"
               onClick={this.getAnimes}>
-              Get More
+              Pick Stock
             </button>
+            <div id="monkey1">
+              <div id='monkey2'></div>
+
+              <ul className="anime">
+                {/*
+                  Generally it's bad to use "index" as a key.
+                  It's ok for this example because there will always
+                  be the same number of anime, and they never
+                  change positions in the array.
+                */}
+                {test.map((anime) =>
+
+                  <li key={anime.anime_score}>
+                    Stock Name: {anime.anime_title} - Ticker Symbol: {anime.anime_score}
+                  </li>
+                )}
+              </ul>
+            </div>
           </div>
         ) : (
           // Render a helpful message otherwise

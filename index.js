@@ -32,9 +32,9 @@ pool.query('SELECT * FROM `anime` ', function (err, rows, fields) {
     }
     data.animes.push(hold)
   }
-  console.log(data)
-});
 
+});
+console.log("!!!!!", data)
   // console.log(x)
 
 // connection.end()
@@ -43,12 +43,14 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Put all API endpoints under '/api'
 app.get('/api/anime', (req, res) => {
-  data_length = data.length
-  console.log(data)
+  data_length = data.animes.length;
+  console.log('log');
+  console.log("test", data_length);
   number = Math.floor(Math.random() * data_length);
   res.json(data);
   console.log("anime sent",number);
   console.log(data[number])
+  console.log('ending');
 });
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
